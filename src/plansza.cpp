@@ -89,7 +89,7 @@ bool plansza:: isEmpty(int column, int row)
     }
 }
 
-bool plansza:: isEnd(char XO)
+int plansza:: isEnd(char XO) //
 {
     int g = 3;
     //w zależności od rozmiaru planszy - by wygrać należy mieć 3,4 lub 5 znaków w linii
@@ -115,7 +115,6 @@ bool plansza:: isEnd(char XO)
         {
             if ((this->tab[i][j]).whatSign() == XO)
             {
-                //cout << "tab[" << i << "][" << j << "]" << endl;
                 for (int k = 0; k < g; k++)
                 {
                     if ((i+k) < this->size)
@@ -123,7 +122,6 @@ bool plansza:: isEnd(char XO)
                         if (((this->tab)[i+k][j]).whatSign() == XO) 
                         {
                             howManyInColumn++;
-                            //cout << "dodano w kolumnie" << endl;
                         }
                     }
                     if ((j+k) < this->size)
@@ -131,7 +129,6 @@ bool plansza:: isEnd(char XO)
                         if (((this->tab)[i][j+k]).whatSign() == XO) 
                         {
                             howManyInRow++;
-                            //cout << "dodano w rzedzie" << endl;
                         }
                     }
                     if (((i+k) < this->size) && ((j-k) >= 0))
@@ -139,7 +136,6 @@ bool plansza:: isEnd(char XO)
                         if (((this->tab)[i+k][j-k]).whatSign() == XO) 
                         {
                             howManyInCrossL++;
-                            //cout << "dodano na ukos" << endl;
                         }
                     }
                     if (((i+k) < this->size) && ((j+k) < this->size))
@@ -147,18 +143,15 @@ bool plansza:: isEnd(char XO)
                         if (((this->tab)[i+k][j+k]).whatSign() == XO) 
                         {
                             howManyInCrossR++;
-                            //cout << "dodano na ukos" << endl;
                         }
                     }
                 }
-                //cout << "kolumna: " << howManyInColumn << "ukosR: " << howManyInCrossR << "ukosL: " << howManyInCrossL << "rzad: " << howManyInColumn << endl; 
                 if ((howManyInColumn == g)||(howManyInCrossL == g)||(howManyInRow == g)||(howManyInCrossR == g))
                 {
                     return 1;
                 }
                 else
                 {
-                    //cout << "zeruje" << endl;
                     howManyInColumn = 0;
                     howManyInCrossL = 0;
                     howManyInCrossR = 0;
@@ -167,6 +160,16 @@ bool plansza:: isEnd(char XO)
             }
         }
     }
+    for (int i = 0; i < size; i++)
+    {
+        for (int j = 0; j < size; j++)
+        {
+            if ((this->tab[i][j]).whatSign() == 'e')
+            {
+                return 0;
+            }
+        }
+    }
+    return 2;
     cout << endl;
-    return 0;
 }

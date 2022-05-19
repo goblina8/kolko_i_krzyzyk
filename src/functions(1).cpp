@@ -78,7 +78,7 @@ plansza computerMove(plansza game, char XO)
             if(game.isEmpty(i,j) == 1)
             {
                 game = game.changePole('X',i,j);
-                int score = minmaxAB(game, 0, false, 'X', -100, 100);
+                int score = minmax(game, 0, false, 'X');
                 game= game.changePole('e',i,j);
                 if (score > bestScore)
                 {
@@ -92,7 +92,7 @@ plansza computerMove(plansza game, char XO)
     return game.changePole(XO,bestMove[0],bestMove[1]);
 }
 
-int minmaxAB(plansza game, int depth, bool isMax, char XO, int A, int B)
+int minmax(plansza game, int depth, bool isMax, char XO)
 {
     int score = game.isEnd(XO);
     if ((score == 1)&&(XO == 'X'))
@@ -121,13 +121,8 @@ int minmaxAB(plansza game, int depth, bool isMax, char XO, int A, int B)
                 if(game.isEmpty(i,j) == 1)
                 {
                     game = game.changePole('X',i,j);
-                    bestScore = max(bestScore, minmaxAB(game, depth+1, false, 'O', A, B));
-                    A = max(A, bestScore);
+                    bestScore = max(bestScore, minmax(game, depth+1, false, 'O'));
                     game = game.changePole('e',i,j);
-                    if (bestScore >= B)
-                    {
-                        break;
-                    }
                 }
             }
         }
@@ -143,13 +138,8 @@ int minmaxAB(plansza game, int depth, bool isMax, char XO, int A, int B)
                 if(game.isEmpty(i,j) == 1)
                 {
                     game = game.changePole('O',i,j);
-                    bestScore = min(bestScore, minmaxAB(game, depth+1, true, 'X', A, B));
-                    B = min(B, bestScore);
+                    bestScore = min(bestScore, minmax(game, depth+1, true, 'X'));
                     game = game.changePole('e',i,j);
-                    if (bestScore <= A)
-                    {
-                        break;
-                    }
                 }
             }
         }
@@ -210,12 +200,12 @@ void menu()
             }
             case 4:
             {
-                howDeep = 4;
+                howDeep = 3;
                 break;
             }
             case 5:
             {
-                howDeep = 3;
+                howDeep = 2;
                 break;
             }
         }

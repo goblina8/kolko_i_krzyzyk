@@ -5,8 +5,9 @@
 using namespace std; 
 
 void menu();
-void move();
+void move(plansza game, int opponent);
 plansza playerMove(plansza game, char XO);
 plansza computerMove(plansza game, char XO);
 bool end(plansza game, char XO);
+int minmaxAB(plansza game, int depth, bool isMax, char XO, int A, int B);
 #endif
